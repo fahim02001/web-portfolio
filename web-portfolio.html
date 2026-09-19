@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fahimur Rahman — Web Developer, Dhaka</title>
+<meta name="description" content="Fahimur Rahman builds data-heavy web interfaces — React front ends, real-time dashboards and messaging, wired to Python and PHP backends. Based in Dhaka, Bangladesh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #FAFAFB;
+    --surface:  #FFFFFF;
+    --panel:    #F2F2F5;
+    --ink:      #16171D;
+    --ink-2:    #53566A;
+    --ink-3:    #82869B;
+    --line:     #E3E4EC;
+    --accent:   #C42A5E;
+    --accent-2: #F7EDF1;
+
+    --font: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:       #0F1014;
+      --surface:  #16171D;
+      --panel:    #1C1E26;
+      --ink:      #ECEDF2;
+      --ink-2:    #A2A6B8;
+      --ink-3:    #7C8092;
+      --line:     #272934;
+      --accent:   #FF6B95;
+      --accent-2: #2A1B24;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:       #0F1014;
+    --surface:  #16171D;
+    --panel:    #1C1E26;
+    --ink:      #ECEDF2;
+    --ink-2:    #A2A6B8;
+    --ink-3:    #7C8092;
+    --line:     #272934;
+    --accent:   #FF6B95;
+    --accent-2: #2A1B24;
+  }
+
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    -webkit-text-size-adjust: 100%;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ================= masthead ================= */
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 2rem 0 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .masthead strong { color: var(--ink); font-weight: 700; }
+
+  /* ================= hero ================= */
+
+  .hero { padding: 3.5rem 0 4rem; }
+
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .statement {
+    font-size: clamp(2rem, 5.4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.07;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.5rem;
+    max-width: 18ch;
+  }
+
+  .sub {
+    font-size: clamp(1.0625rem, 1.8vw, 1.1875rem);
+    color: var(--ink-2);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .spec {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.25rem;
+    align-self: start;
+  }
+  .spec dl { margin: 0; }
+  .spec dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-3);
+    margin: 0 0 0.15rem;
+  }
+  .spec dd {
+    margin: 0 0 1.05rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .spec dd:last-child { margin-bottom: 0; }
+
+  @media (min-width: 54rem) {
+    .hero-layout { grid-template-columns: 1fr 15rem; gap: 4rem; }
+    .hero { padding-top: 5rem; }
+  }
+
+  /* ================= sections ================= */
+
+  .band { border-top: 1px solid var(--line); padding: 3.5rem 0; }
+
+  .band-head {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+
+  .band-intro {
+    color: var(--ink-2);
+    max-width: 58ch;
+    margin: 0 0 2.5rem;
+  }
+  .band-intro:last-child { margin-bottom: 0; }
+
+  /* ================= projects ================= */
+
+  .project {
+    border-top: 1px solid var(--line);
+    padding: 2rem 0 0;
+    margin-top: 2rem;
+  }
+  .project:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+  .project h3 {
+    font-size: 1.3125rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    margin: 0 0 0.6rem;
+  }
+
+  .project > p {
+    color: var(--ink-2);
+    max-width: 62ch;
+    margin: 0 0 1.15rem;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 38rem) {
+    .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .facts div { min-width: 0; }
+  .facts dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-3);
+    margin: 0 0 0.2rem;
+  }
+  .facts dd {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  /* ================= approach ================= */
+
+  .points { margin: 0; padding: 0; list-style: none; }
+  .points li {
+    border-top: 1px solid var(--line);
+    padding: 1.35rem 0;
+    max-width: 64ch;
+  }
+  .points li:first-child { border-top: 0; padding-top: 0; }
+  .points h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.01em;
+  }
+  .points p { margin: 0; color: var(--ink-2); }
+
+  /* ================= stack ================= */
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 42rem) {
+    .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 3rem; }
+  }
+  .stack-grid h3 {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 0.4rem;
+  }
+  .stack-grid p { margin: 0; color: var(--ink-2); font-size: 0.9375rem; }
+
+  /* ================= background ================= */
+
+  .role { padding: 1.35rem 0; border-top: 1px solid var(--line); max-width: 64ch; }
+  .role:first-of-type { border-top: 0; padding-top: 0; }
+  .role h3 { font-size: 1.0625rem; font-weight: 700; margin: 0 0 0.2rem; }
+  .role .when { font-size: 0.875rem; color: var(--ink-3); margin: 0 0 0.45rem; font-weight: 500; }
+  .role p:last-child { margin: 0; color: var(--ink-2); }
+
+  /* ================= contact ================= */
+
+  .contact {
+    background: var(--accent-2);
+    border-radius: 6px;
+    padding: 2.25rem 1.75rem;
+  }
+  .contact h2 {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
+  .contact p { margin: 0 0 1.25rem; color: var(--ink-2); max-width: 46ch; }
+  .contact .email {
+    font-size: clamp(1.0625rem, 3vw, 1.375rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    word-break: break-word;
+  }
+
+  footer {
+    padding: 2.5rem 0 4rem;
+    font-size: 0.875rem;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <span><strong>Fahimur Rahman</strong></span>
+    <span>Dhaka, Bangladesh</span>
+  </div>
+
+  <header class="hero">
+    <div class="hero-layout">
+      <div>
+        <h1 class="statement">I build web interfaces for things that move.</h1>
+        <p class="sub">
+          Dashboards, live metrics, real-time messaging — React front ends wired to
+          Python and PHP backends. I've also built the data systems underneath them,
+          which is usually why the interface ends up honest about what the data can
+          actually do.
+        </p>
+      </div>
+      <div class="spec">
+        <dl>
+          <dt>Focus</dt>
+          <dd>Front-end and full-stack web</dd>
+          <dt>Core stack</dt>
+          <dd>React, JavaScript, Python, PHP</dd>
+          <dt>Availability</dt>
+          <dd>Remote, ~20 hrs/week</dd>
+          <dt>Languages</dt>
+          <dd>Bengali, English</dd>
+        </dl>
+      </div>
+    </div>
+  </header>
+
+  <section class="band">
+    <h2 class="band-head">Selected work</h2>
+    <p class="band-intro">
+      Four projects that show the range: live data in the browser, real-time
+      communication, and recommendation features built into education products.
+    </p>
+
+    <article class="project">
+      <h3>Real-time data visualisation dashboard</h3>
+      <p>
+        A live dashboard displaying metrics from educational tools as they arrive.
+        Built in React and wired to backend services so the figures update dynamically
+        rather than on refresh, with interactive controls for filtering what's on screen.
+      </p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Front-end build and backend integration</dd></div>
+        <div><dt>Stack</dt><dd>React, Python, REST services</dd></div>
+        <div><dt>Problem</dt><dd>Making continuously changing data readable at a glance</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h3>Real-time chat for a learning platform</h3>
+      <p>
+        WebSocket messaging integrated into an education platform, letting students and
+        instructors communicate instantly inside the product instead of leaving it.
+        Required handling connection state and message delivery without the interface
+        stalling or duplicating.
+      </p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Feature design and implementation</dd></div>
+        <div><dt>Stack</dt><dd>WebSocket, JavaScript</dd></div>
+        <div><dt>Problem</dt><dd>Live state in the UI without jitter or duplicates</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h3>Learning path recommendation system</h3>
+      <p>
+        A recommendation engine that generates personalised learning paths on an
+        educational platform, surfaced to users as suggested next steps. Engagement
+        increased by 25%.
+      </p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Model and product feature</dd></div>
+        <div><dt>Stack</dt><dd>Python, machine learning</dd></div>
+        <div><dt>Result</dt><dd>25% increase in user engagement</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h3>Personalised study plan generator</h3>
+      <p>
+        Builds individual study plans from a learner's progress data and stated
+        preferences, turning a pile of performance records into a schedule someone
+        can actually follow.
+      </p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>End-to-end build</dd></div>
+        <div><dt>Stack</dt><dd>Python</dd></div>
+        <div><dt>Problem</dt><dd>Turning raw progress data into a usable plan</dd></div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="band">
+    <h2 class="band-head">How I work</h2>
+    <ul class="points">
+      <li>
+        <h3>I read design files properly</h3>
+        <p>
+          I taught UI/UX design in Figma and Axure RP for two years. When I'm handed a
+          file I build what's in it — spacing, states, breakpoints — rather than
+          approximating it and hoping nobody measures.
+        </p>
+      </li>
+      <li>
+        <h3>I can explain a technical trade-off to someone non-technical</h3>
+        <p>
+          Four years of teaching, and a job where I presented findings to product
+          managers and business analysts. If something in a design will be slow,
+          fragile or expensive, you'll hear why in plain language and get an
+          alternative, not silence followed by a surprise.
+        </p>
+      </li>
+      <li>
+        <h3>I've built the backend, so I scope the front end realistically</h3>
+        <p>
+          Three years building and deploying data systems in production. I know what
+          an API can return in 200 milliseconds and what it can't, which tends to
+          settle interface arguments early rather than late.
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band">
+    <h2 class="band-head">Stack and tools</h2>
+    <div class="stack-grid">
+      <div>
+        <h3>Front end</h3>
+        <p>React.js, JavaScript, HTML, CSS</p>
+      </div>
+      <div>
+        <h3>Back end</h3>
+        <p>FastAPI, Django, Laravel, PHP, Python, Node-style REST services</p>
+      </div>
+      <div>
+        <h3>Data</h3>
+        <p>MongoDB, SQL, Pandas, NumPy</p>
+      </div>
+      <div>
+        <h3>Design tools</h3>
+        <p>Figma, Axure RP</p>
+      </div>
+      <div>
+        <h3>Also work in</h3>
+        <p>Java, C, C++, TensorFlow, PyTorch, scikit-learn</p>
+      </div>
+      <div>
+        <h3>Languages</h3>
+        <p>Bengali (native), English (professional, written and spoken)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2 class="band-head">Background</h2>
+
+    <div class="role">
+      <h3>Machine Learning Engineer — Nexus Digital</h3>
+      <p class="when">Dhaka, Bangladesh · February 2022 – October 2024</p>
+      <p>
+        Built and deployed predictive models in production, and led end-to-end delivery
+        of a recommendation system that increased user engagement by 20%. Worked
+        alongside data engineers, analysts and product managers, and presented technical
+        findings to non-technical stakeholders.
+      </p>
+    </div>
+
+    <div class="role">
+      <h3>AI Data Trainer — Appen</h3>
+      <p class="when">Remote · July 2024 – September 2024</p>
+      <p>
+        Reviewed and corrected AI-generated code in Python and Java, and produced
+        Bengali and English language training data with quality checks on technical
+        content.
+      </p>
+    </div>
+
+    <div class="role">
+      <h3>Computer Science Instructor</h3>
+      <p class="when">Dhaka, Bangladesh · January 2021 – May 2023 (part-time)</p>
+      <p>
+        Taught web development — HTML, CSS and JavaScript — plus UI/UX design in Figma
+        and Axure RP, Java object-oriented programming with a supervised practical
+        project, and machine learning and data science fundamentals.
+      </p>
+    </div>
+
+    <div class="role">
+      <h3>Mathematics Instructor</h3>
+      <p class="when">Dhaka, Bangladesh · January 2019 – December 2022 (part-time)</p>
+      <p>
+        Taught O-Level, A-Level and engineering mathematics. Lesson plans and exam
+        preparation contributed to a 30% improvement in student performance.
+      </p>
+    </div>
+
+    <div class="role">
+      <h3>BSc in Computer Science and Engineering — BRAC University</h3>
+      <p class="when">September 2019 – August 2023 · GPA 3.88 / 4.00</p>
+      <p>
+        Coursework included web development (React.js, MongoDB, FastAPI), algorithms and
+        data structures, database management, machine learning and AI, networking and
+        cyber security.
+      </p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="contact">
+      <h2>Available for web work</h2>
+      <p>
+        Remote, around 20 hours a week, from Dhaka. Happy to walk through how I'd
+        approach a specific page or flow.
+      </p>
+      <a class="email" href="mailto:fahimrahman01010@gmail.com">fahimrahman01010@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    Fahimur Rahman — Dhaka, Bangladesh
+  </footer>
+
+</div>
+
+</body>
+</html>
